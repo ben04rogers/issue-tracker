@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo2.png";
+import { NavbarContext } from "../../helper/Context";
 import "./Navbar.css";
 
-function Navbar(props) {
-  const [navOpen, setNavOpen] = useState(props.navOpen);
+function Navbar() {
+  const { navOpen, setNavOpen } = useContext(NavbarContext);
 
-  useEffect(() => {
-    setNavOpen(props.navOpen);
-    console.log(navOpen);
-  }, [props.navOpen]);
+  // useEffect(() => {
+  //   setNavOpen(props.navOpen);
+  //   console.log(navOpen);
+  // }, [props.navOpen]);
 
   return (
     <>
@@ -26,18 +28,26 @@ function Navbar(props) {
               <img src={logo} alt="logo" className="logo" />
             </a>
 
-            <li href="#" className="nav-link text-white my-2">
-              <i className="fas fa-bug"></i>
-              <span className="mx-2">Bugs</span>
-            </li>
-            <li href="#" className="nav-link text-white my-2">
-              <i className="fas fa-calendar-alt"></i>
-              <span className="mx-2">Schedule</span>
-            </li>
-            <li href="#" className="nav-link text-white my-2">
-              <i className="fas fa-cog"></i>
-              <span className="mx-2">Settings</span>
-            </li>
+            <Link to="/">
+              <li href="#" className="nav-link text-white my-2">
+                <i className="fas fa-bug"></i>
+                <span className="mx-2">Bugs</span>
+              </li>
+            </Link>
+
+            <Link to="/schedule">
+              <li href="#" className="nav-link text-white my-2">
+                <i className="fas fa-calendar-alt"></i>
+                <span className="mx-2">Schedule</span>
+              </li>
+            </Link>
+
+            <Link to="/settings">
+              <li href="#" className="nav-link text-white my-2">
+                <i className="fas fa-cog"></i>
+                <span className="mx-2">Settings</span>
+              </li>
+            </Link>
           </div>
           <li href="#" className="mt-auto nav-link text-white my-2">
             <i className="fas fa-sign-out-alt"></i>
@@ -55,6 +65,28 @@ function Navbar(props) {
             <i className="bx bxl-facebook text-white"></i>
           </a>
         </span>
+      </div>
+      <div
+        class="p-1 my-container active-cont"
+        style={navOpen ? { marginLeft: "250px" } : { marginLeft: "50px" }}
+      >
+        <nav className="navbar top-navbar navbar-light bg-light px-3">
+          <button
+            className="btn btn-primary"
+            id="menu-btn"
+            onClick={() => setNavOpen(!navOpen)}
+          >
+            {navOpen ? (
+              <i class="fas fa-angle-double-left"></i>
+            ) : (
+              <i class="fas fa-angle-double-right"></i>
+            )}
+          </button>
+          <div>
+            <button className="btn btn-primary">Current Issues</button>
+            <button className="btn btn-danger m-2 text-white">Add Issue</button>
+          </div>
+        </nav>
       </div>
     </>
   );

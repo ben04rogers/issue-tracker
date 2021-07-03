@@ -10,6 +10,11 @@ body {
   background-color: #fff;
 }
 
+a,
+a:hover {
+  text-decoration: none;
+}
+
 .my-container {
   transition: 0.4s;
 }

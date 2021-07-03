@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 function AddIssue() {
   return (
-    <div className="add-issue">
+    <div className="add-issue m-3">
       <Form>
+        <h3>Add Issue</h3>
         <FormGroup className="my-3">
           <Label for="description">Description</Label>
           <Input
