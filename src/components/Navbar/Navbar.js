@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo2.png";
-import { NavbarContext } from "../../helper/Context";
+import { NavbarContext } from "../../contexts/NavContext";
 import "./Navbar.css";
 
 function Navbar() {
   const { navOpen, setNavOpen } = useContext(NavbarContext);
-
-  // useEffect(() => {
-  //   setNavOpen(props.navOpen);
-  //   console.log(navOpen);
-  // }, [props.navOpen]);
-
   return (
     <>
       <div
@@ -83,8 +77,12 @@ function Navbar() {
             )}
           </button>
           <div>
-            <button className="btn btn-primary">Current Issues</button>
-            <button className="btn btn-danger m-2 text-white">Add Issue</button>
+            <Link to="/login">
+              <button className="btn btn-primary">Login</button>
+            </Link>
+            <Link to="/signup">
+              <button className="btn btn-danger m-2 text-white">Sign Up</button>
+            </Link>
           </div>
         </nav>
       </div>

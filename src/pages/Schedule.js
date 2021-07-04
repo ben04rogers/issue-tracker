@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavbarContext } from "../helper/Context";
+import { NavbarContext } from "../contexts/NavContext";
 
 function Schedule() {
   const { navOpen, setNavOpen } = useContext(NavbarContext);
+  document.title = "Issue Tracker | Schedule";
 
   return (
     <div>
