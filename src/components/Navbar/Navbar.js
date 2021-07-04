@@ -1,11 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Button } from "reactstrap";
 import logo from "../../assets/logo2.png";
 import { NavbarContext } from "../../contexts/NavContext";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Navbar.css";
 
 function Navbar() {
   const { navOpen, setNavOpen } = useContext(NavbarContext);
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  async function handleLogout() {
+    setError("");
+    try {
+      await logout();
+      history.push("/login");
+    } catch {
+      setError("Failed to log out");
+    }
+  }
+
   return (
     <>
       <div
@@ -43,10 +59,18 @@ function Navbar() {
               </li>
             </Link>
           </div>
-          <li href="#" className="mt-auto nav-link text-white my-2">
-            <i className="fas fa-sign-out-alt"></i>
-            <span className="mx-2">Logout</span>
-          </li>
+          {currentUser ? (
+            <li href="#" className="mt-auto nav-link text-white my-2">
+              <Button
+                color="link"
+                className="text-decoration-none text-white"
+                onClick={handleLogout}
+              >
+                <i className="fas fa-sign-out-alt"></i>
+                <span className="mx-2">Logout</span>
+              </Button>
+            </li>
+          ) : null}
         </ul>
         <span href="#" className="nav-link h4 w-100 mb-5">
           <a href="">
@@ -76,14 +100,18 @@ function Navbar() {
               <i class="fas fa-angle-double-right"></i>
             )}
           </button>
-          <div>
-            <Link to="/login">
-              <button className="btn btn-primary">Login</button>
-            </Link>
-            <Link to="/signup">
-              <button className="btn btn-danger m-2 text-white">Sign Up</button>
-            </Link>
-          </div>
+          {!currentUser ? (
+            <div>
+              <Link to="/login">
+                <button className="btn btn-primary">Login</button>
+              </Link>
+              <Link to="/signup">
+                <button className="btn btn-danger m-2 text-white">
+                  Sign Up
+                </button>
+              </Link>
+            </div>
+          ) : null}
         </nav>
       </div>
     </>
